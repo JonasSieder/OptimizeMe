@@ -1,0 +1,35 @@
+// Imports \\_______________________________________
+@import '__variables.scss';
+@import 'components/work-break-progressbar.scss';
+@import 'components/headings.scss';
+
+// Styles \\_______________________________________
+body {
+  padding: $body-padding;
+  position: relative;
+}
+
+.control-elements {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.adjustments {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.adjustment-box {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+
+  &__description {
+    margin: 0px 0px 8px 0px;
+  }
+
+  &__input::-webkit-inner-spin-button {
+    opacity: 1
+  }
+}

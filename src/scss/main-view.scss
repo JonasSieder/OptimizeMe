@@ -1,0 +1,74 @@
+// Imports \\_______________________________________
+@import '__variables.scss';
+@import 'components/work-break-progressbar.scss';
+@import 'components/headings.scss';
+
+// Vars \\_______________________________________
+
+// Styles \\_______________________________________
+body {
+  padding: $body-padding;
+  width: $body-width;
+}
+
+.pomodoro {
+  display: flex;
+  align-items: center;
+
+  .pomodoro__progress {
+    display: flex;
+    width: 80%;
+    margin-right: 15px;
+    border: 1px solid;
+    border-radius: 5px;
+  }
+}
+
+.progressbar-controls i {
+  &:hover {
+    text-shadow: 1px 1px 2px rgb(100, 98, 98);
+  }
+
+  &:first-child {
+    margin-right: 5px;
+  }
+}
+
+.btns-menue {
+  display: flex;
+  flex-direction: column;
+
+  &__button {
+    width: 150px;
+    margin-bottom: 5px;
+  }
+}
+
+.timer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 8px;
+
+  &__icon {
+    margin-right: 5px;
+  }
+
+  &__time {
+    margin: 0;
+  }
+}
+
+.stay-hydrated {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  &__message {
+    margin: 5px;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <link rel="stylesheet" href="/dist/adjust-intervals.min.css">
+  <title>Document</title>
+</head>
+<body>
+  <h2 class="heading">Passe deine Intervalle an</h2>
+
+  <!-- work-break-progressbar -->
+  <div data-role="containerProgressbar">
+    <!-- <div class="progressbar">
+      <div class="progressbar__work-section" style="width: 25px;">
+        <div class="progressbar__progress-work"></div>
+      </div>
+      <div class="progressbar__break-section" style="width: 5px;">
+        <div class="progressbar__progress-break"></div>
+      </div>
+    </div>
+    <div class="progressbar-controls">
+      <i class="fa-regular fa-circle-play fa-xl"></i>
+      <i class="fa-regular fa-circle-pause fa-xl"></i>
+    </div> -->
+  </div>
+
+  <section class="control-elements">
+    <!-- adjustment elements -->
+    <div class="adjustments">
+      <div class="adjustment-box">
+        <p class="adjustment-box__description">Arbeitsintervall</p>
+        <input class="adjustment-box__input" type="number" value="25" min="1" max="120">
+      </div>
+      <div class="adjustment-box">
+        <p class="adjustment-box__description">Pausenintervall</p>
+        <input class="adjustment-box__input" type="number" value="5" min="1" max="120">
+      </div>
+      <div class="adjustment-box">
+        <p class="adjustment-box__description">letzte Pause</p>
+        <input class="adjustment-box__input" type="number" value="15" min="1" max="120">
+      </div>
+    </div>
+
+    <i class="fa-regular fa-floppy-disk fa-2xl save-icon"></i>
+  </section>
+  <script type="module" src="/src/js/adjust-intervals.js"></script>
+</body>
+</html>
