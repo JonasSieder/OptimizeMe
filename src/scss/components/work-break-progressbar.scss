@@ -1,18 +1,50 @@
 // Vars \\_______________________________________
 
 // Styles \\_______________________________________
+.pomodoro__progress {
+  display: flex;
+  height: 12px;
+  width: 100%;
+  margin-right: 15px;
+  border: 1px solid;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px gray;
+
+  > :first-child {
+    .work-progressbar__progress {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+  }
+
+  > :last-child {
+    .break-progressbar__progress {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+}
+
 .work-progressbar {
-  // background-color: lightblue;
   border-right: 1px solid;
-  height: 10px;
+  height: 100%;
+
+  &__progress {
+    background-color: lightblue;
+    height: 100%;
+  }
 }
 
 .break-progressbar {
   border-right: 1px solid;
-  // background-color: lightgreen;
-  height: 10px;
+  height: 100%;
 
   &--last-break {
     border: none;
+  }
+
+  &__progress {
+    background-color: lightgreen;
+    height: 100%;
   }
 }
