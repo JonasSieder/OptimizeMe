@@ -1,8 +1,9 @@
-import workBreakProgressbar from './components/work-break-progressbar.js'
+import renderWorkBreakProgressbar from './components/render-work-break-progressbar.js'
 
 const btnIntervalleAnpassen = document.querySelector('[data-role="btnIntervalleAnpassen"]')
+const btnPomodoroStart = document.querySelector('[data-role="pomodoroStart"]')
 
-workBreakProgressbar.init()
+renderWorkBreakProgressbar.init()
 
 const openCustomizeIntervals = () => {
   chrome.windows.create({
@@ -15,4 +16,9 @@ const openCustomizeIntervals = () => {
   })
 }
 
+const startPomodoro = () => {
+  const timer = 25
+}
+
 btnIntervalleAnpassen.addEventListener('click', openCustomizeIntervals)
+btnPomodoroStart.addEventListener('click', startPomodoro)

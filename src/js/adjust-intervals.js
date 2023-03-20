@@ -1,3 +1,5 @@
-import workBreakProgressbar from './components/work-break-progressbar.js'
+import renderWorkBreakProgressbar from './components/render-work-break-progressbar.js'
 
-workBreakProgressbar.init()
+
+
+renderWorkBreakProgressbar.init()

@@ -6,12 +6,30 @@ const init = () => {
   let lastBreak = 15
   let pomodoroCycle = 4
 
-  const intervalWidths = progressbarPartitioning(pomodoroProgress, workInterval, breakInterval, lastBreak, pomodoroCycle)
-  console.log(intervalWidths)
+  // getIntervalTimes()
+
+  const intervalWidths = progressbarPartitioning(workInterval, breakInterval, lastBreak, pomodoroCycle)
   buildProgressbar(pomodoroProgress, intervalWidths, pomodoroCycle)
 }
 
-const progressbarPartitioning = (pomodoroProgress, workInterval, breakInterval, lastBreak, pomodoroCycle) => {
+const getIntervalTimes = () => {
+  chrome.storage.sync.get((result) => {
+    console.log(result.customizedInterval)
+    if (result.customizedInterval) {
+      workInterval = result.customizedInterval.workInterval
+      breakInterval = result.customizedInterval.breakInterval
+      lastBreak = result.customizedInterval.lastBreak
+      pomodoroCycle = result.customizedInterval.pomodoroCycle
+    } else {
+      workInterval = 25
+      breakInterval = 5
+      lastBreak = 15
+      pomodoroCycle = 4
+    }
+  })
+}
+
+const progressbarPartitioning = (workInterval, breakInterval, lastBreak, pomodoroCycle) => {
   const allMinutes = (workInterval * pomodoroCycle) + (breakInterval * (pomodoroCycle - 1) + lastBreak)
   const widthWorkInterval = calculatePercentageRate(workInterval, allMinutes).toFixed(2)
   const widthBreakInterval = calculatePercentageRate(breakInterval, allMinutes).toFixed(2)
@@ -26,11 +44,11 @@ const calculatePercentageRate = (interval, allMinutes) => {
 
 const buildProgressbar = (pomodoroProgress, intervalWidths, pomodoroCycle) => {
   const workProgressbar = `
-  <div class="work-progressbar" style="width: ${intervalWidths[0]}%">
-    <div class="work-progressbar__progress"></div>
-    <p class="work-progressbar__description"></p>
-  </div>
-`
+    <div class="work-progressbar" style="width: ${intervalWidths[0]}%">
+      <div class="work-progressbar__progress"></div>
+      <p class="work-progressbar__description"></p>
+    </div>
+  `
 
   const breakProgressbar = `
     <div class="break-progressbar" style="width: ${intervalWidths[1]}%">
