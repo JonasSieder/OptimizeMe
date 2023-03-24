@@ -1,4 +1,4 @@
-import renderPomodoroProgressbar from './components/render-pomodoro-progressbar.js'
+import pomodoroProgressbar from './components/pomodoro-progressbar.js'
 
 const inputsAdjustIntervalTimes = document.querySelectorAll('[data-role="adjustIntervalTime"]')
 const btnResetIntervalTimes = document.querySelector('[data-role="resetIntervalTimes"]')
@@ -8,7 +8,7 @@ let valueBreakInterval
 let valueLastBreak
 let valuePomodoroCycle
 
-renderPomodoroProgressbar.init()
+pomodoroProgressbar.init()
 
 chrome.storage.sync.get((result) => {
   if (result.customizedInterval) {
@@ -28,11 +28,11 @@ const saveValues = () => {
 
 const resetIntervalTimes = () => {
   chrome.storage.sync.clear()
-  inputsAdjustIntervalTimes[0].value = 25
-  inputsAdjustIntervalTimes[1].value = 5
-  inputsAdjustIntervalTimes[2].value = 15
-  inputsAdjustIntervalTimes[3].value = 4
-  renderPomodoroProgressbar.init()
+  inputsAdjustIntervalTimes[0].value = pomodoroProgressbar.intervalTimes.standardWorkInterval
+  inputsAdjustIntervalTimes[1].value = pomodoroProgressbar.intervalTimes.standardBreakInterval
+  inputsAdjustIntervalTimes[2].value = pomodoroProgressbar.intervalTimes.standardLastBreak
+  inputsAdjustIntervalTimes[3].value = pomodoroProgressbar.intervalTimes.standardPomodoroCycle
+  pomodoroProgressbar.init()
 }
 
 const saveIntervalTimes = () => {
@@ -55,6 +55,6 @@ inputsAdjustIntervalTimes.forEach((input) => {
     const adjustIntervalTime = true
     saveValues()
 
-    renderPomodoroProgressbar.renderProgressbar(adjustIntervalTime, valueWorkInterval, valueBreakInterval, valueLastBreak, valuePomodoroCycle)
+    pomodoroProgressbar.renderProgressbar(adjustIntervalTime, valueWorkInterval, valueBreakInterval, valueLastBreak, valuePomodoroCycle)
   })
 })

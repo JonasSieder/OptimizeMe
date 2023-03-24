@@ -1,3 +1,10 @@
+const intervalTimes = {
+  standardWorkInterval: 25,
+  standardBreakInterval: 5,
+  standardLastBreak: 15,
+  standardPomodoroCycle: 4
+}
+
 let workInterval
 let breakInterval
 let lastBreak
@@ -24,10 +31,10 @@ const getIntervalTimes = () => {
         lastBreak = result.customizedInterval.lastBreak
         pomodoroCycle = result.customizedInterval.pomodoroCycle
       } else {
-        workInterval = 25
-        breakInterval = 5
-        lastBreak = 15
-        pomodoroCycle = 4
+        workInterval = intervalTimes.standardWorkInterval
+        breakInterval = intervalTimes.standardBreakInterval
+        lastBreak = intervalTimes.standardLastBreak
+        pomodoroCycle = intervalTimes.standardPomodoroCycle
       }
       resolve()
     })
@@ -103,5 +110,6 @@ const buildProgressbar = (elementPomodoroProgress, intervalWidthsPercent, pomodo
 export default {
   init,
   renderProgressbar,
-  getChromeSyncStorage
+  getChromeSyncStorage,
+  intervalTimes
 }

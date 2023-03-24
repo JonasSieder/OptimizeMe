@@ -1,10 +1,10 @@
-import renderPomodoroProgressbar from './components/render-pomodoro-progressbar.js'
+import pomodoroProgressbar from './components/pomodoro-progressbar.js'
 
 const btnIntervalleAnpassen = document.querySelector('[data-role="btnIntervalleAnpassen"]')
 const btnPomodoroStart = document.querySelector('[data-role="pomodoroStart"]')
 const elmTimer = document.querySelector('[data-role="time"]')
 
-renderPomodoroProgressbar.init()
+pomodoroProgressbar.init()
 
 const openCustomizeIntervalsView = () => {
   chrome.windows.create({
@@ -17,7 +17,7 @@ const openCustomizeIntervalsView = () => {
   }, (window) => {
     chrome.windows.onRemoved.addListener((windowId) => {
       if (windowId === window.id) {
-        renderPomodoroProgressbar.init()
+        pomodoroProgressbar.init()
       }
     })
   })
