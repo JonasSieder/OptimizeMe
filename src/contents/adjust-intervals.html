@@ -1,0 +1,28 @@
+<!-- work-break-progressbar -->
+<div class="pomodoro__progress" data-role="pomodoroProgress"></div>
+
+<!-- adjustment elements -->
+<section class="control-elements">
+  <div class="adjustments">
+    <div class="adjustment-box">
+      <p class="adjustment-box__description">Arbeitsintervall</p>
+      <input class="adjustment-box__input" data-role="adjustIntervalTime" type="number" value="25" min="1" max="120">
+    </div>
+    <div class="adjustment-box">
+      <p class="adjustment-box__description">Pausenintervall</p>
+      <input class="adjustment-box__input" data-role="adjustIntervalTime" type="number" value="5" min="1" max="120">
+    </div>
+    <div class="adjustment-box">
+      <p class="adjustment-box__description">letzte Pause</p>
+      <input class="adjustment-box__input" data-role="adjustIntervalTime" type="number" value="15" min="1" max="120">
+    </div>
+    <div class="adjustment-box">
+      <p class="adjustment-box__description">Zyklen</p>
+      <input class="adjustment-box__input" data-role="adjustIntervalTime" type="number" value="4" min="1" max="8">
+    </div>
+  </div>
+  <div class="storage">
+    <i class="storage__reset fa-solid fa-arrow-rotate-right fa-2xl" data-role="resetIntervalTimes"></i>
+    <i class="storage__save fa-regular fa-floppy-disk fa-2xl" data-role="saveIntervalTimes"></i>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+// Imports \\_______________________________________
+@import 'contents/pomodoro-progressbar.scss';
+@import 'contents/adjust-intervals.scss';
+
+// Vars \\_______________________________________
+$background-color-secondary: #302e2e;
+$margin-outside: 30px;
+
+// Styles \\_______________________________________
+body {
+  margin: 0;
+  width: 550px;
+}
+
+.top {
+  background-color: $background-color-secondary;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  margin: 0px $margin-outside;
+
+  &__heading {
+    color: white;
+  }
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  height: 2rem;
+  margin: 0px $margin-outside;
+
+  &__button {
+    background: none;
+    color: white;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+}
