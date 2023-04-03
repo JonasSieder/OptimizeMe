@@ -21,3 +21,27 @@
     }
   }
 }
+
+.work-progressbar {
+  border-right: 1px solid;
+  height: 100%;
+
+  &__progress {
+    background-color: lightblue;
+    height: 100%;
+  }
+}
+
+.break-progressbar {
+  border-right: 1px solid;
+  height: 100%;
+
+  &--last-break {
+    border: none;
+  }
+
+  &__progress {
+    background-color: lightgreen;
+    height: 100%;
+  }
+}

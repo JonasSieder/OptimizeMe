@@ -1,8 +1,10 @@
+console.log('adjust-interval geladen!')
 import pomodoroProgressbar from "/src/js/components/pomodoro-progressbar.js"
-
 const inputsAdjustIntervalTimes = document.querySelectorAll('[data-role="adjustIntervalTime"]')
 const btnResetIntervalTimes = document.querySelector('[data-role="resetIntervalTimes"]')
 const btnSaveIntervalTimes = document.querySelector('[data-role="saveIntervalTimes"]')
+
+pomodoroProgressbar.init()
 
 const saveInputIntervalTimesToCloud = () => {
   const obj = {
@@ -16,3 +18,8 @@ const saveInputIntervalTimesToCloud = () => {
 }
 
 btnSaveIntervalTimes.addEventListener('click', saveInputIntervalTimesToCloud)
+inputsAdjustIntervalTimes.forEach((input) => {
+  input.addEventListener('change', () => {
+    pomodoroProgressbar.renderProgressbar(parseInt(inputsAdjustIntervalTimes[0].value), parseInt(inputsAdjustIntervalTimes[1].value), parseInt(inputsAdjustIntervalTimes[2].value), parseInt(inputsAdjustIntervalTimes[3].value))
+  })
+})

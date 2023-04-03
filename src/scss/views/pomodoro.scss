@@ -18,9 +18,16 @@
   }
 }
 
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 13px;
+}
+
 .timer {
   display: flex;
-  margin: 8px 0px;
+  align-items: center;
 
   &__icon {
     margin-right: 5px;
@@ -28,15 +35,13 @@
 
   &__time {
     margin: 0;
+    font-size: 0.8rem;
   }
 }
 
 .stay-hydrated {
   display: flex;
   align-items: center;
-  position: absolute;
-  bottom: 0;
-  right: $margin-outside;
 
   &__message {
     margin: 5px;
