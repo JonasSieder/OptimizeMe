@@ -1,35 +1,41 @@
-// import pomodoroProgressbar from './components/pomodoro-progressbar.js'
-
 const buttonsNavbar = document.querySelectorAll('[data-role="navbarButton"]')
 const containerContent = document.querySelector('[data-role="contentContainer"]')
 
 const renderContent = (fileName) => {
-  return fetch(`/src/contents/${fileName}.html`)
+  return fetch(`/src/views/${fileName}.html`)
     .then(response => response.text())
     .then(data => {
-    const content = document.createElement('div')
-    content.innerHTML = data
-
-    // das h2-Element bearbeiten
-    // const heading = content.querySelector('#pomodoro-heading');
-    // heading.textContent = 'Mein neuer Pomodoro Timer';
-
-    containerContent.appendChild(content)
-  })
-  .catch(error => console.log(error))
+      removeContent()
+      addContent(fileName, data)
+    })
+    .catch(error => console.log(error))
 }
 
-chrome.runtime.onStartup.addListener(function() {
-  console.log('Browser gestartet.')
-})
-console.log('test')
+const removeContent = () => {
+  const script = document.head.querySelector('script')
+  if (script) {
+    script.parentNode.removeChild(script)
+  }
+
+  containerContent.innerHTML = ''
+}
+
+const addContent = (fileName, data) => {
+  const content = document.createElement('div')
+  content.innerHTML = data
+
+  const script = document.createElement('script')
+  script.type= 'module'
+  script.src = `/src/js/views/${fileName}.js`
+  document.head.appendChild(script)
+
+  containerContent.appendChild(content)
+}
+
+renderContent('pomodoro')
 
 buttonsNavbar.forEach((button) => {
   button.addEventListener('click', () => {
-    renderContent(button.value).then(() => {
-      if (button.value == 'pomodoro-progressbar') {
-        // pomodoroProgressbar.init()
-      }
-    })
+    renderContent(button.value)
   })
 })
