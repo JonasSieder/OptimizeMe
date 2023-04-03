@@ -1,9 +1,8 @@
 // Imports \\_______________________________________
-@import 'contents/pomodoro-progressbar.scss';
-
-// Vars \\_______________________________________
-$background-color-secondary: #302e2e;
-$margin-outside: 30px;
+@import './variables';
+@import 'components/pomodoro-progressbar.scss';
+@import 'views/pomodoro.scss';
+@import 'views/adjust-intervals.scss';
 
 // Styles \\_______________________________________
 body {
@@ -13,6 +12,7 @@ body {
 
 .top {
   background-color: $background-color-secondary;
+  margin-bottom: 20px;
 }
 
 .header {
@@ -39,4 +39,8 @@ body {
     padding: 0;
     cursor: pointer;
   }
+}
+
+.main {
+  margin: 0px $margin-outside;
 }
