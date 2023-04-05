@@ -20,6 +20,7 @@ const getCloudTimeDataIfExists = (intervalTimes) => {
 const renderProgressbar = (workInterval, breakInterval, lastBreak, pomodoroCycle) => {
   console.log(workInterval, breakInterval, lastBreak, pomodoroCycle)
   const elementPomodoroProgress = document.querySelector('[data-role="pomodoroProgress"]')
+  console.log(elementPomodoroProgress)
 
   const percantageIntervalWidths = calculateIntervalWidths(workInterval, breakInterval, lastBreak, pomodoroCycle)
   buildProgressbar(elementPomodoroProgress, percantageIntervalWidths, pomodoroCycle)
@@ -72,6 +73,7 @@ const buildProgressbar = (elementPomodoroProgress, intervalWidthsPercent, pomodo
     }
   }
 
+  console.log(elementPomodoroProgress)
   elementPomodoroProgress.innerHTML = progressBar
 }
 

@@ -1,3 +1,5 @@
+import pomodoro from './views/pomodoro.js'
+import adjustIntervals from './views/adjust-intervals.js'
 const buttonsNavbar = document.querySelectorAll('[data-role="navbarButton"]')
 const containerContent = document.querySelector('[data-role="contentContainer"]')
 
@@ -5,31 +7,28 @@ const renderContent = (fileName) => {
   return fetch(`/src/views/${fileName}.html`)
     .then(response => response.text())
     .then(data => {
-      removeContent()
+      containerContent.innerHTML = ''
       addContent(fileName, data)
     })
     .catch(error => console.log(error))
-}
-
-const removeContent = () => {
-  const script = document.head.querySelector('script')
-  if (script) {
-    script.parentNode.removeChild(script)
-  }
-
-  containerContent.innerHTML = ''
 }
 
 const addContent = (fileName, data) => {
   const content = document.createElement('div')
   content.innerHTML = data
 
-  const script = document.createElement('script')
-  script.type= 'module'
-  script.src = `/src/js/views/${fileName}.js`
-  document.head.appendChild(script)
-
   containerContent.appendChild(content)
+
+  switch (fileName) {
+    case 'pomodoro':
+      pomodoro.init()
+      break;
+    case 'adjust-intervals':
+      adjustIntervals.init()
+      break;
+    default:
+      console.log('coming soon!')
+  }
 }
 
 renderContent('pomodoro')
