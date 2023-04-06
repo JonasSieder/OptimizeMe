@@ -1,7 +1,19 @@
 import pomodoro from './views/pomodoro.js'
 import adjustIntervals from './views/adjust-intervals.js'
 const buttonsNavbar = document.querySelectorAll('[data-role="navbarButton"]')
+const underLineNavbar = document.querySelector('[data-role="navbarUnderline"]')
 const containerContent = document.querySelector('[data-role="contentContainer"]')
+
+const moveNavbarUnderline = (button) => {
+  const activeButtonRect = button.getBoundingClientRect();
+  const containerRect = button.parentElement.getBoundingClientRect();
+
+  const offsetLeft = activeButtonRect.left - containerRect.left;
+  const offsetRight = containerRect.right - activeButtonRect.right;
+
+  underLineNavbar.style.left = offsetLeft + 'px';
+  underLineNavbar.style.right = offsetRight + 'px';
+}
 
 const renderContent = (fileName) => {
   return fetch(`/src/views/${fileName}.html`)
@@ -27,14 +39,16 @@ const addContent = (fileName, data) => {
       adjustIntervals.init()
       break;
     default:
-      console.log('coming soon!')
+      console.log('js coming soon!')
   }
 }
 
+moveNavbarUnderline(buttonsNavbar[0])
 renderContent('pomodoro')
 
 buttonsNavbar.forEach((button) => {
   button.addEventListener('click', () => {
+    moveNavbarUnderline(button)
     renderContent(button.value)
   })
 })

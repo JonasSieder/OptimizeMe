@@ -27,6 +27,7 @@ body {
 }
 
 .navbar {
+  position: relative;
   display: flex;
   justify-content: space-between;
   height: 2rem;
@@ -38,6 +39,16 @@ body {
     border: none;
     padding: 0;
     cursor: pointer;
+  }
+
+  &__underline {
+    position: absolute;
+    bottom: 4px;
+    margin: 0;
+    height: 2px;
+    border-width: 0;
+    background-color: white;
+    transition: all 0.3s ease;
   }
 }
 
