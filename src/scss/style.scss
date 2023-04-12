@@ -1,8 +1,9 @@
 // Imports \\_______________________________________
-@import './variables';
+@import 'variables.scss';
 @import 'components/pomodoro-progressbar.scss';
 @import 'views/pomodoro.scss';
 @import 'views/adjust-intervals.scss';
+@import 'views/break-ideas.scss';
 
 // Styles \\_______________________________________
 body {
