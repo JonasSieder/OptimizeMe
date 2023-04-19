@@ -1,9 +1,13 @@
 const init = () => {
-  const ideasMain = document.querySelector('[data-role="breakIdeasMain"]')
   const navbarTabs = document.querySelectorAll('[data-role="navbarTab"]')
+  const tasks = document.querySelectorAll('[data-role="task"]')
+  const ytPlaylists = document.querySelectorAll('[data-role="playlist"]')
+  const powernapping = document.querySelector('[data-role="powernapping"]')
+  let activeElement
   let activeTab = navbarTabs[0]
 
-  renderTask(ideasMain)
+  let randomTask = renderRandomTask(tasks, activeElement)
+  activeElement = randomTask
 
   navbarTabs.forEach((tab) => {
     tab.addEventListener('click', () => {
@@ -11,60 +15,64 @@ const init = () => {
 
       switch (tab.getAttribute('data-value')) {
         case 'randomTask':
-          renderTask(ideasMain)
+          removeActiveElement(activeElement)
+          let randomTask = renderRandomTask(tasks, activeElement)
+          activeElement = randomTask
+          break;
+        case 'sport':
+          removeActiveElement(activeElement)
+          ytPlaylists[0].classList.remove('none')
+          activeElement = ytPlaylists[0]
+          break;
+        case 'yoga':
+          removeActiveElement(activeElement)
+          ytPlaylists[1].classList.remove('none')
+          activeElement = ytPlaylists[1]
+          break;
+        case 'meditation':
+          removeActiveElement(activeElement)
+          ytPlaylists[2].classList.remove('none')
+          activeElement = ytPlaylists[2]
+          break;
+        case 'powernapping':
+          removeActiveElement(activeElement)
+          initPowernapping(powernapping)
+          activeElement = powernapping
+          break;
       }
     })
   })
 }
 
-const renderTask = (ideasMain) => {
-  console.log('renderTask')
+const removeActiveElement = (activeElement) => {
+  if (activeElement) {
+    activeElement.classList.add('none')
+  }
+}
 
-  const tasks = [
-    {
-      icon: 'fa-regular fa-image fa-2xl',
-      description: 'Schone deine Augen!'
-    },
-    {
-      icon: 'fa-solid fa-mug-hot fa-2xl',
-      description: 'Hol dir etwas zu trinken!'
-    },
-    {
-      icon: 'fa-solid fa-mug-hot fa-2xl',
-      description: 'Dehne dich!'
-    },
-    {
-      icon: 'fa-solid fa-mug-hot fa-2xl',
-      description: 'Schau beim Sport-Tab vorbei!'
-    },
-    {
-      icon: 'fa-solid fa-mug-hot fa-2xl',
-      description: 'Schau beim Yoga-Tab vorbei!'
-    },
-    {
-      icon: 'fa-solid fa-mug-hot fa-2xl',
-      description: 'Schau beim Meditations-Tab vorbei!'
-    },
-    {
-      icon: 'fa-solid fa-mug-hot fa-2xl',
-      description: 'Mach ein kurzes Powernapping!'
-    },
-    {
-      icon: 'fa-solid fa-carrot',
-      description: 'Iss ein Snack!'
-    },
-    {
-      icon: 'fa-solid fa-mug-hot fa-2xl',
-      description: 'Mach einen Spaziergang!'
-    },
-  ]
-
+const renderRandomTask = (tasks) => {
   const randomTask = tasks[Math.floor(Math.random() * tasks.length)]
-  const randomTaskHtml = `
-    <i class="${randomTask.icon}"></i>
-    <h1>${randomTask.description}</h1>
-  `
-  ideasMain.innerHTML = randomTaskHtml
+  randomTask.classList.remove('none')
+
+  return randomTask
+}
+
+const initPowernapping = (powernapping) => {
+  const timeElement = document.querySelector('[data-role="powernappingTime"]')
+  const timeUp = document.querySelector('[data-role="powernappingTimeUp"]')
+  const timeDown = document.querySelector('[data-role="powernappingTimeDown"]')
+  const play = document.querySelector('[data-role="powernappingPlay"]')
+  const pause = document.querySelector('[data-role="powernappingPause"]')
+
+  powernapping.classList.remove('none')
+
+  let time = timeElement.innerHTML
+
+  // timeUp.addEventListener('click', () => {
+
+  // }
+
+  return 
 }
 
 const changeActiveTab = (activeTab, tab) => {

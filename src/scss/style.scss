@@ -4,6 +4,7 @@
 @import 'views/pomodoro.scss';
 @import 'views/adjust-intervals.scss';
 @import 'views/break-ideas.scss';
+@import 'views/self-reflection.scss';
 
 // Styles \\_______________________________________
 body {
@@ -55,4 +56,8 @@ body {
 
 .main {
   margin: 0px $margin-outside;
+}
+
+.none {
+  display: none;
 }
