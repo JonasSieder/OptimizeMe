@@ -4,8 +4,6 @@ const init = () => {
   const btnResetIntervalTimes = document.querySelector('[data-role="resetIntervalTimes"]')
   const btnSaveIntervalTimes = document.querySelector('[data-role="saveIntervalTimes"]')
 
-  pomodoroProgressbar.init()
-
   chrome.storage.sync.get((result) => {
     if (result.customizedInterval) {
       inputsAdjustIntervalTimes[0].value = result.customizedInterval.workInterval
@@ -15,33 +13,39 @@ const init = () => {
     }
   })
 
-  const saveInputIntervalTimesToCloud = () => {
-    const obj = {
-      workInterval: parseInt(inputsAdjustIntervalTimes[0].value),
-      breakInterval: parseInt(inputsAdjustIntervalTimes[1].value),
-      lastBreak: parseInt(inputsAdjustIntervalTimes[2].value),
-      pomodoroCycle: parseInt(inputsAdjustIntervalTimes[3].value)
-    }
+  pomodoroProgressbar.init()
 
-    chrome.storage.sync.set({'customizedInterval': obj})
-  }
-
-  const resetInputIntervalTimes = () => {
-    chrome.storage.sync.clear()
-    inputsAdjustIntervalTimes[0].value = 25
-    inputsAdjustIntervalTimes[1].value = 5
-    inputsAdjustIntervalTimes[2].value = 15
-    inputsAdjustIntervalTimes[3].value = 4
-    pomodoroProgressbar.init()
-  }
-
-  btnSaveIntervalTimes.addEventListener('click', saveInputIntervalTimesToCloud)
-  btnResetIntervalTimes.addEventListener('click', resetInputIntervalTimes)
+  btnSaveIntervalTimes.addEventListener('click', () => {
+    saveInputIntervalTimesToCloud(inputsAdjustIntervalTimes)
+  })
+  btnResetIntervalTimes.addEventListener('click', () => {
+    resetInputIntervalTimes(inputsAdjustIntervalTimes)
+  })
   inputsAdjustIntervalTimes.forEach((input) => {
     input.addEventListener('change', () => {
       pomodoroProgressbar.renderProgressbar(parseInt(inputsAdjustIntervalTimes[0].value), parseInt(inputsAdjustIntervalTimes[1].value), parseInt(inputsAdjustIntervalTimes[2].value), parseInt(inputsAdjustIntervalTimes[3].value))
     })
   })
+}
+
+const saveInputIntervalTimesToCloud = (inputsAdjustIntervalTimes) => {
+  const obj = {
+    workInterval: parseInt(inputsAdjustIntervalTimes[0].value),
+    breakInterval: parseInt(inputsAdjustIntervalTimes[1].value),
+    lastBreak: parseInt(inputsAdjustIntervalTimes[2].value),
+    pomodoroCycle: parseInt(inputsAdjustIntervalTimes[3].value)
+  }
+
+  chrome.storage.sync.set({'customizedInterval': obj})
+}
+
+const resetInputIntervalTimes = (inputsAdjustIntervalTimes) => {
+  chrome.storage.sync.clear()
+  inputsAdjustIntervalTimes[0].value = 25
+  inputsAdjustIntervalTimes[1].value = 5
+  inputsAdjustIntervalTimes[2].value = 15
+  inputsAdjustIntervalTimes[3].value = 4
+  pomodoroProgressbar.init()
 }
 
 export default {
