@@ -4,44 +4,33 @@
   width: 100%;
   margin-right: 15px;
   border: 1px solid;
-  border-radius: 5px;
   box-shadow: 1px 1px 1px gray;
-
-  > :first-child {
-    .work-progressbar__progress {
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-    }
-  }
-
-  > :last-child {
-    .break-progressbar__progress {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-    }
-  }
 }
 
 .work-progressbar {
   border-right: 1px solid;
   height: 100%;
+  background-color: $pomodoro-work-color-light;
 
   &__progress {
-    background-color: lightblue;
+    background-color: $pomodoro-work-color-strong;
     height: 100%;
+    width: 0%;
   }
 }
 
 .break-progressbar {
   border-right: 1px solid;
   height: 100%;
+  background-color: $pomodoro-break-color-light;
 
   &--last-break {
     border: none;
   }
 
   &__progress {
-    background-color: lightgreen;
+    background-color: $pomodoro-break-color-strong;
     height: 100%;
+    width: 0%;
   }
 }
