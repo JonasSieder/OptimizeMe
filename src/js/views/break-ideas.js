@@ -36,7 +36,7 @@ const init = () => {
           break;
         case 'powernapping':
           removeActiveElement(activeElement)
-          initPowernapping(powernapping)
+          powernapping.classList.remove('none')
           activeElement = powernapping
           break;
       }
@@ -55,24 +55,6 @@ const renderRandomTask = (tasks) => {
   randomTask.classList.remove('none')
 
   return randomTask
-}
-
-const initPowernapping = (powernapping) => {
-  const timeElement = document.querySelector('[data-role="powernappingTime"]')
-  const timeUp = document.querySelector('[data-role="powernappingTimeUp"]')
-  const timeDown = document.querySelector('[data-role="powernappingTimeDown"]')
-  const play = document.querySelector('[data-role="powernappingPlay"]')
-  const pause = document.querySelector('[data-role="powernappingPause"]')
-
-  powernapping.classList.remove('none')
-
-  let time = timeElement.innerHTML
-
-  // timeUp.addEventListener('click', () => {
-
-  // }
-
-  return 
 }
 
 const changeActiveTab = (activeTab, tab) => {
