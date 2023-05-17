@@ -46,31 +46,31 @@ const calculateIntervalWidth = (interval, totalMinutes) => {
 }
 
 const buildProgressbar = (elementPomodoroProgress, intervalWidthsPercent, pomodoroCycle) => {
-  const workProgressbar = `
-    <div class="work-progressbar" style="width: ${intervalWidthsPercent[0]}%">
-      <div class="work-progressbar__progress" data-role="workProgressbar"></div>
+  const workProgressbar = (id, width) => `
+    <div class="work-progressbar" style="width: ${width}%">
+      <div class="work-progressbar__progress" data-role="workProgressbar" data-id="${id}"></div>
     </div>
   `
 
-  const breakProgressbar = `
-    <div class="break-progressbar" style="width: ${intervalWidthsPercent[1]}%">
-      <div class="break-progressbar__progress" data-role="breakProgressbar"></div>
+  const breakProgressbar = (id, width) => `
+    <div class="break-progressbar" style="width: ${width}%">
+      <div class="break-progressbar__progress" data-role="breakProgressbar" data-id="${id}"></div>
     </div>
   `
 
-  const lastBreakProgressbar = `
-    <div class="break-progressbar break-progressbar--last-break" style="width: ${intervalWidthsPercent[2]}%">
-      <div class="break-progressbar__progress" data-role="lastBreakProgressbar"></div>
+  const lastBreakProgressbar = (id, width) => `
+    <div class="break-progressbar break-progressbar--last-break" style="width: ${width}%">
+      <div class="break-progressbar__progress" data-role="lastBreakProgressbar" data-id="${id}"></div>
     </div>
   `
 
-  let progressBar = '';
+  let progressBar = ''
 
   for (let i = 0; i < pomodoroCycle * 2; i++) {
     if (i === pomodoroCycle * 2 - 1) {
-      progressBar += lastBreakProgressbar
+      progressBar += lastBreakProgressbar(i, intervalWidthsPercent[2])
     } else {
-      progressBar += i % 2 === 0 ? workProgressbar : breakProgressbar
+      progressBar += i % 2 === 0 ? workProgressbar(i, intervalWidthsPercent[0]) : breakProgressbar(i, intervalWidthsPercent[1])
     }
   }
 
