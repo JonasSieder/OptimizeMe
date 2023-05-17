@@ -5,7 +5,7 @@ let currentSeconds = 0
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'startCountdown') {
     console.log('background --> Message startCountdown erhalten')
-    startInterval(message.maxMinutes, sendResponse)
+    startInterval(message.maxMinutes)
     sendResponse({ success: true })
   } else if (message.action === 'stopCountdown') {
     clearInterval(countdownInterval)
@@ -26,14 +26,14 @@ const createNotification = () => {
   })
 }
 
-const startInterval = (maxMinutes, currentSeconds, sendResponse) => {
+const startInterval = (maxMinutes) => {
   remainingSeconds = (maxMinutes * 60) - 1
 
   countdownInterval = setInterval(() => {
-    console.log('---------------------')
-    console.log(`maxMinutes: ${maxMinutes}`)
-    console.log(`currentSeconds: ${currentSeconds}`)
-    console.log(`remainingSeconds: ${remainingSeconds}`)
+    // console.log('---------------------')
+    // console.log(`maxMinutes: ${maxMinutes}`)
+    // console.log(`currentSeconds: ${currentSeconds}`)
+    // console.log(`remainingSeconds: ${remainingSeconds}`)
 
     remainingSeconds--
     currentSeconds++

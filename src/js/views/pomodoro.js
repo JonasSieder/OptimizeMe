@@ -3,10 +3,11 @@ import pomodoroProgressbar from "/src/js/components/pomodoro-progressbar.js"
 const init = async () => {
   await pomodoroProgressbar.init()
 
+  const progressbarWork = document.querySelector('[data-role="workProgressbar"]')
   const countdownDisplay = document.querySelector('[data-role="countdown"]')
   const btnStart = document.querySelector('[data-role="pomodoroStart"]')
   const intervalTimes = {}
-  let currentIntervalData = {
+  let currentIntervalTimes = {
     currentInterval: null,
     currentSeconds: null,
     remainingSeconds: null
@@ -16,8 +17,6 @@ const init = async () => {
 
   btnStart.addEventListener('click', () => {
     const maxMinutes = intervalTimes.workInterval
-    // countdownDisplay.innerHTML = (maxMinutes * 60) - 1
-    console.log(`pomodoro --> btnStart click | maxMinutes: ${maxMinutes}`)
 
     chrome.runtime.sendMessage({ action: 'startCountdown', maxMinutes, currentSeconds: 0 }, (response) => {
       if (response.success) {
@@ -26,20 +25,9 @@ const init = async () => {
     })
 
     setInterval(() => {
-      sendRemainingSeconds(countdownDisplay, currentIntervalData)
-      moveProgressbar(currentIntervalData.currentSeconds)
+      sendRemainingSeconds(countdownDisplay, currentIntervalTimes)
+      moveProgressbar(currentIntervalTimes.currentSeconds, maxMinutes, progressbarWork)
     }, 500)
-  })
-}
-
-const sendRemainingSeconds = (countdownDisplay, currentIntervalData) => {
-  chrome.runtime.sendMessage({ action: 'getRemainingSeconds' }, (response) => {
-    if (response.success) {
-      console.log('current seconds:', response.currentSeconds)
-      countdownDisplay.innerHTML = formatTime(response.remainingSeconds)
-      currentIntervalData.currentSeconds = response.currentSeconds
-      currentIntervalData.remainingSeconds = response.remainingSeconds
-    }
   })
 }
 
@@ -54,15 +42,23 @@ const fetchIntervalTimes = (intervalTimes) => {
   })
 }
 
+const sendRemainingSeconds = (countdownDisplay, currentIntervalTimes) => {
+  chrome.runtime.sendMessage({ action: 'getRemainingSeconds' }, (response) => {
+    countdownDisplay.innerHTML = formatTime(response.remainingSeconds)
+    currentIntervalTimes.currentSeconds = response.currentSeconds
+    currentIntervalTimes.remainingSeconds = response.remainingSeconds
+  })
+}
+
 const formatTime = (remainingSeconds) => {
   const minutes = Math.floor(remainingSeconds / 60)
   const remainingSecondsFromMinutes = remainingSeconds % 60
   return `${minutes}:${remainingSecondsFromMinutes < 10 ? '0' : ''}${remainingSecondsFromMinutes}`
 }
 
-const moveProgressbar = (remainingSeconds, maxMinutes) => {
-  const progressbar = document.querySelector('[data-role="workProgressbar"]')
-  let progressbarWidth = ((maxMinutes * 60 - remainingSeconds) * 100) / (maxMinutes * 60)
+const moveProgressbar = (currentSeconds, maxMinutes, progressbar) => {
+  // let progressbarWidth = ((maxMinutes * 60 - currentSeconds) * 100) / (maxMinutes * 60)
+  let progressbarWidth = (currentSeconds * 100) / (maxMinutes * 60)
   progressbar.style.width = `${progressbarWidth}%`
 }
 
