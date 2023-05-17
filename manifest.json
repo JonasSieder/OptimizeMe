@@ -8,6 +8,12 @@
         "default_icon": "icons/icon-16.png"
     },
     "permissions": [
-      "storage"
-    ]
+      "storage",
+      "notifications",
+      "nativeMessaging",
+      "windows"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    }
 }

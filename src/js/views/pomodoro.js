@@ -1,35 +1,45 @@
 import pomodoroProgressbar from "/src/js/components/pomodoro-progressbar.js"
+
 const init = async () => {
   await pomodoroProgressbar.init()
 
-  const btnStart = document.querySelector('[data-role="pomodoroStart"]')
-  const btnNextInterval = document.querySelector('[data-role="pomodoroNextInterval"]')
-  const btnReset = document.querySelector('[data-role="pomodoroReset"]')
   const countdownDisplay = document.querySelector('[data-role="countdown"]')
-  const workProgressbar = document.querySelector('[data-role="workProgressbar"]')
-  const breakProgressbar = document.querySelectorAll('[data-role="breakProgressbar"]')
-  const lastBreakProgressbar = document.querySelectorAll('[data-role="lastBreakProgressbar"]')
+  const btnStart = document.querySelector('[data-role="pomodoroStart"]')
   const intervalTimes = {}
   let currentIntervalData = {
-    currentInterval: 0,
-    currentSeconds: 0
+    currentInterval: null,
+    currentSeconds: null,
+    remainingSeconds: null
   }
 
   await fetchIntervalTimes(intervalTimes)
-  countdownDisplay.innerHTML = `${intervalTimes.workInterval}:00`
-  console.log(workProgressbar)
 
   btnStart.addEventListener('click', () => {
-    // currentInterval = currentIntervalData.currentInterval
-    startInterval(countdownDisplay, intervalTimes.workInterval, currentIntervalData.currentSeconds, workProgressbar)
-  })
+    const maxMinutes = intervalTimes.workInterval
+    // countdownDisplay.innerHTML = (maxMinutes * 60) - 1
+    console.log(`pomodoro --> btnStart click | maxMinutes: ${maxMinutes}`)
 
-  btnNextInterval.addEventListener('click', () => {
-    console.log('next')
-  })
+    chrome.runtime.sendMessage({ action: 'startCountdown', maxMinutes, currentSeconds: 0 }, (response) => {
+      if (response.success) {
+        // moveProgressbar(response.remainingSeconds, maxMinutes)
+      }
+    })
 
-  btnReset.addEventListener('click', () => {
-    console.log('reset')
+    setInterval(() => {
+      sendRemainingSeconds(countdownDisplay, currentIntervalData)
+      moveProgressbar(currentIntervalData.currentSeconds)
+    }, 500)
+  })
+}
+
+const sendRemainingSeconds = (countdownDisplay, currentIntervalData) => {
+  chrome.runtime.sendMessage({ action: 'getRemainingSeconds' }, (response) => {
+    if (response.success) {
+      console.log('current seconds:', response.currentSeconds)
+      countdownDisplay.innerHTML = formatTime(response.remainingSeconds)
+      currentIntervalData.currentSeconds = response.currentSeconds
+      currentIntervalData.remainingSeconds = response.remainingSeconds
+    }
   })
 }
 
@@ -44,29 +54,15 @@ const fetchIntervalTimes = (intervalTimes) => {
   })
 }
 
-const startInterval = (countdownDisplay, maxMinutes, currentSeconds, workProgressbar) => {
-  let remainingSeconds = (maxMinutes * 60) - 1 // don't count the first second
-  const countdownInterval = setInterval(() => {
-    countdownDisplay.innerHTML = formatTime(remainingSeconds)
-    moveProgressbar(currentSeconds, maxMinutes, workProgressbar)
-    // console.log(`remainingSeconds: ${remainingSeconds}`)
-    remainingSeconds--
-    currentSeconds++
-    if (remainingSeconds === 0) {
-      clearInterval(countdownInterval)
-      alert(`Countdown für ${maxMinutes} Minuten ist abgelaufen!`)
-    }
-  }, 1000)
-}
-
 const formatTime = (remainingSeconds) => {
   const minutes = Math.floor(remainingSeconds / 60)
   const remainingSecondsFromMinutes = remainingSeconds % 60
   return `${minutes}:${remainingSecondsFromMinutes < 10 ? '0' : ''}${remainingSecondsFromMinutes}`
 }
 
-const moveProgressbar = (currentSeconds, maxMinutes, progressbar) => {
-  let progressbarWidth = (currentSeconds * 100) / (maxMinutes * 60)
+const moveProgressbar = (remainingSeconds, maxMinutes) => {
+  const progressbar = document.querySelector('[data-role="workProgressbar"]')
+  let progressbarWidth = ((maxMinutes * 60 - remainingSeconds) * 100) / (maxMinutes * 60)
   progressbar.style.width = `${progressbarWidth}%`
 }
 
