@@ -16,7 +16,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       break;
     case 'nextInterval':
       clearInterval(countdownInterval)
+      currentSeconds = 0
       startInterval(message.maxMinutes)
+      console.log(message.maxMinutes)
       sendResponse({ success: true })
       break;
     default:
@@ -37,9 +39,9 @@ const createNotification = () => {
 
 const startInterval = (maxMinutes) => {
   countdownInterval = setInterval(() => {
-    // console.log('---------------------')
-    // console.log(`maxMinutes: ${maxMinutes}`)
-    // console.log(`currentSeconds: ${currentSeconds}`)
+    console.log('---------------------')
+    console.log(`maxMinutes: ${maxMinutes}`)
+    console.log(`currentSeconds: ${currentSeconds}`)
 
     currentSeconds++
     if (currentSeconds === (maxMinutes * 60)) {
