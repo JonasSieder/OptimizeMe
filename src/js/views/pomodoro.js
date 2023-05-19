@@ -25,16 +25,16 @@ const init = async () => {
     currentSeconds: null,
     remainingSeconds: null
   }
-  console.log(progressBarOrder)
+  // console.log(progressBarOrder)
 
   await getIntervalTimesFromGoogleCloud(intervalTimes)
   maxMinutes = intervalTimes.workProgressbar
-  // getMaxMinutes()
+  // getProgressbarData()
 
   await getProgressTimesFromBackgroundScript(progressTimes, maxMinutes)
   displayRightBtn(btnPlay, btnStop, progressTimes)
 
-  updateCountdownDisplay(progressTimes, maxMinutes, progressTimes.currentSeconds, progressTimes.remainingSeconds, countdownDisplay, progressbarWork, countdownInterval)
+  updateCountdownDisplay(progressTimes, maxMinutes, countdownDisplay, progressbarWork, countdownInterval)
 
   btnPlay.addEventListener('click', () => {
     chrome.runtime.sendMessage({ action: 'startCountdown', maxMinutes}, (response) => {
@@ -53,21 +53,20 @@ const init = async () => {
   })
 
   btnNextInterval.addEventListener('click', () => {
-    moveToNextInterval(progressTimes, progressBarOrder, maxMinutes, intervalTimes, countdownDisplay, progressbarWork, countdownInterval)
+    moveToNextInterval(progressTimes, progressBarOrder, maxMinutes, intervalTimes, countdownDisplay, countdownInterval)
   })
 
   btnReset.addEventListener('click', () => {
     chrome.storage.local.remove('currentInterval', () => {
-      console.log('Intervall gelöscht')
+      // console.log('Intervall gelöscht')
     })
   })
 }
 
-const getMaxMinutes = (currentInterval, progressBarOrder, intervalTimes) => {
+const getProgressbarData = (currentInterval, progressBarOrder, intervalTimes) => {
   const progressbar = progressBarOrder[currentInterval]
   const progressbarType = progressbar.element.getAttribute('data-role')
-  return intervalTimes[progressbarType]
-  // return {progressbarType, maxMinutes: intervalTimes[progressbarType]}
+  return {progressbar, maxMinutes: intervalTimes[progressbarType]}
 }
 
 const createProgressbarOrderArray = (progressBars) => {
@@ -79,26 +78,29 @@ const createProgressbarOrderArray = (progressBars) => {
   return progressBarOrder
 }
 
-const moveToNextInterval = (progressTimes, progressBarOrder, maxMinutes, intervalTimes, countdownDisplay, progressbarWork, countdownInterval) => {
+const moveToNextInterval = (progressTimes, progressBarOrder, maxMinutes, intervalTimes, countdownDisplay, countdownInterval) => {
   chrome.storage.local.get('currentInterval', (result) => {
-    progressTimes.currentInterval = result.currentInterval || 0 // Standardwert 0, falls nicht vorhanden
-    const nextInterval = progressTimes.currentInterval + 1 // Berechne den Wert des nächsten Intervalls
+    progressTimes.currentInterval = result.currentInterval || 0
+    const nextInterval = progressTimes.currentInterval + 1
 
-    maxMinutes = getMaxMinutes(nextInterval, progressBarOrder, intervalTimes)
+    const progressbarData = getProgressbarData(progressTimes.currentInterval, progressBarOrder, intervalTimes)
+    const progressbar = progressbarData.progressbar
+    const progressbarElement = progressbar.element
+    console.log(progressbarElement)
+    maxMinutes = progressbarData.maxMinutes
 
-    chrome.runtime.sendMessage({ action: 'nextInterval', maxMinutes}, (response) => {
+    chrome.runtime.sendMessage({ action: 'nextInterval', maxMinutes }, (response) => {
       if (response.success) {
-        updateCountdownDisplay(progressTimes, maxMinutes, progressTimes.currentSeconds, progressTimes.remainingSeconds, countdownDisplay, progressbarWork, countdownInterval)
-        // moveProgressbar()
+        updateCountdownDisplay(progressTimes, maxMinutes, countdownDisplay, progressbarElement, countdownInterval)
       }
     })
 
-    // Speichere den Wert des nächsten Intervalls
     chrome.storage.local.set({ currentInterval: nextInterval }, () => {
       console.log(`Intervall ${nextInterval} gespeichert`)
     })
   })
 }
+
 
 const getIntervalTimesFromGoogleCloud = (intervalTimes) => {
   return pomodoroProgressbar.getIntervalTime().then(result => {
@@ -110,20 +112,20 @@ const getIntervalTimesFromGoogleCloud = (intervalTimes) => {
   })
 }
 
-const updateCountdownDisplay = (progressTimes, maxMinutes, currentSeconds, remainingSeconds, countdownDisplay, progressbarWork, countdownInterval) => {
+const updateCountdownDisplay = (progressTimes, maxMinutes, countdownDisplay, progressbarElement, countdownInterval) => {
   countdownDisplay.innerHTML = formatTime(progressTimes.remainingSeconds)
-  moveProgressbar(progressTimes.currentSeconds, maxMinutes, progressbarWork)
+  moveProgressbar(progressTimes.currentSeconds, maxMinutes, progressbarElement)
 
   if (countdownInterval.value) {
-    clearInterval(countdownInterval.value);
+    clearInterval(countdownInterval.value)
   }
 
   countdownInterval.value = setInterval( async () => {
     await getProgressTimesFromBackgroundScript(progressTimes, maxMinutes)
-    remainingSeconds = progressTimes.remainingSeconds
-    currentSeconds = progressTimes.currentSeconds
+    const remainingSeconds = progressTimes.remainingSeconds
+    const currentSeconds = progressTimes.currentSeconds
     countdownDisplay.innerHTML = formatTime(remainingSeconds)
-    moveProgressbar(currentSeconds, maxMinutes, progressbarWork)
+    moveProgressbar(currentSeconds, maxMinutes, progressbarElement)
   }, 500)
 }
 
@@ -157,9 +159,9 @@ const formatTime = (remainingSeconds) => {
   return `${minutes}:${remainingSecondsFromMinutes < 10 ? '0' : ''}${remainingSecondsFromMinutes}`
 }
 
-const moveProgressbar = (currentSeconds, maxMinutes, progressbar) => {
+const moveProgressbar = (currentSeconds, maxMinutes, progressbarElement) => {
   let progressbarWidth = (currentSeconds * 100) / (maxMinutes * 60)
-  progressbar.style.width = `${progressbarWidth}%`
+  progressbarElement.style.width = `${progressbarWidth}%`
 }
 
 const changePlayPauseBtn = (btnFirst, btnSecond) => {
