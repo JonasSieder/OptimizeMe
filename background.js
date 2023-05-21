@@ -1,25 +1,28 @@
-let countdownInterval
-let currentSeconds = 0
+let countdown
+let intervalStatus = false
+let seconds = 0
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.action) {
-    case 'getProgressTimes':
-      sendResponse({ success: true, currentSeconds })
+    case 'getStatus':
+      sendResponse({ intervalStatus, seconds })
       break;
     case 'startCountdown':
       startInterval(message.maxMinutes)
-      sendResponse({ success: true })
       break;
     case 'stopCountdown':
-      clearInterval(countdownInterval)
-      sendResponse({ success: true })
+      clearInterval(countdown)
+      intervalStatus = false
       break;
     case 'nextInterval':
-      clearInterval(countdownInterval)
-      currentSeconds = 0
+      clearInterval(countdown)
+      seconds = 0
       startInterval(message.maxMinutes)
-      console.log(message.maxMinutes)
-      sendResponse({ success: true })
+      break;
+    case 'resetIntervalNumber':
+      clearInterval(countdown)
+      intervalStatus = false
+      seconds = 0
       break;
     default:
       sendResponse({ success: false, error: 'Unknown action' })
@@ -27,7 +30,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 })
 
 const createNotification = () => {
-  console.log('Benachrichtigung')
   chrome.notifications.create({
     type: 'basic',
     iconUrl: 'time-icon.jpg',
@@ -38,15 +40,17 @@ const createNotification = () => {
 }
 
 const startInterval = (maxMinutes) => {
-  countdownInterval = setInterval(() => {
+  intervalStatus = true
+  countdown = setInterval(() => {
     console.log('---------------------')
     console.log(`maxMinutes: ${maxMinutes}`)
-    console.log(`currentSeconds: ${currentSeconds}`)
+    console.log(`seconds: ${seconds}`)
 
-    currentSeconds++
-    if (currentSeconds === (maxMinutes * 60)) {
+    seconds++
+    if (seconds === (maxMinutes * 60)) {
       createNotification()
-      clearInterval(countdownInterval)
+      clearInterval(countdown)
+      intervalStatus = false
     }
   }, 1000)
 }

@@ -8,7 +8,7 @@ const init = () => {
     if (result.customizedInterval) {
       inputsAdjustIntervalTimes[0].value = result.customizedInterval.workInterval
       inputsAdjustIntervalTimes[1].value = result.customizedInterval.breakInterval
-      inputsAdjustIntervalTimes[2].value = result.customizedInterval.lastBreak
+      inputsAdjustIntervalTimes[2].value = result.customizedInterval.lastBreakInterval
       inputsAdjustIntervalTimes[3].value = result.customizedInterval.pomodoroCycle
     }
   })
@@ -17,6 +17,8 @@ const init = () => {
 
   btnSaveIntervalTimes.addEventListener('click', () => {
     saveInputIntervalTimesToCloud(inputsAdjustIntervalTimes)
+    chrome.storage.local.set({'interval': 0})
+    chrome.storage.local.clear(() => {})
   })
   btnResetIntervalTimes.addEventListener('click', () => {
     resetInputIntervalTimes(inputsAdjustIntervalTimes)
@@ -32,7 +34,7 @@ const saveInputIntervalTimesToCloud = (inputsAdjustIntervalTimes) => {
   const obj = {
     workInterval: parseInt(inputsAdjustIntervalTimes[0].value),
     breakInterval: parseInt(inputsAdjustIntervalTimes[1].value),
-    lastBreak: parseInt(inputsAdjustIntervalTimes[2].value),
+    lastBreakInterval: parseInt(inputsAdjustIntervalTimes[2].value),
     pomodoroCycle: parseInt(inputsAdjustIntervalTimes[3].value)
   }
 
