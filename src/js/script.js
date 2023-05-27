@@ -2,6 +2,7 @@ import pomodoro from './views/pomodoro.js'
 import adjustIntervals from './views/adjust-intervals.js'
 import breakIdeas from './views/break-ideas.js'
 import selfReflaction from './views/self-reflection.js'
+import statistic from './views/statistic.js'
 const buttonsNavbar = document.querySelectorAll('[data-role="navbarButton"]')
 const underLineNavbar = document.querySelector('[data-role="navbarUnderline"]')
 const containerContent = document.querySelector('[data-role="contentContainer"]')
@@ -45,6 +46,9 @@ const addContent = (fileName, data) => {
       break;
     case 'self-reflection':
       selfReflaction.init()
+      break;
+    case 'statistic':
+      statistic.init()
       break;
     default:
       console.log('js coming soon!')

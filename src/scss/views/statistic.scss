@@ -1,0 +1,15 @@
+.statistic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.question {
+  display: flex;
+  justify-content: space-between;
+
+  &__description {
+    margin-right: 10px;
+  }
+}
