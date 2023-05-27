@@ -1,24 +1,26 @@
 <div class="section">
   <h2 class="section__heading">Wie war dein Tag?</h2>
   <div>
-    <button class="section__button">
-      <i class="section__icon fa-regular fa-face-laugh-beam" style="color:rgb(10, 192, 10);"></i>
-    </button>
-    <i class="section__icon fa-regular fa-face-smile-beam" style="color: rgb(160, 187, 7);"></i>
-    <i class="section__icon fa-regular fa-face-meh" style="color:rgb(182, 179, 9);"></i>
-    <i class="section__icon fa-regular fa-face-frown-open" style="color:rgb(189, 103, 4);"></i>
-    <i class="section__icon fa-regular fa-face-frown" style="color:rgb(219, 5, 5);"></i>
+    <i class="section__icon fa-regular fa-face-frown" style="color:rgb(219, 5, 5);" data-role="dayStatus" data-id="5" title="Sehr schlecht"></i>
+    <i class="section__icon fa-regular fa-face-frown-open" style="color:rgb(189, 103, 4);" data-role="dayStatus" data-id="4" title="Schlecht"></i>
+    <i class="section__icon fa-regular fa-face-meh" style="color:rgb(182, 179, 9);" data-role="dayStatus" data-id="3" title="Durchschnittlich"></i>
+    <i class="section__icon fa-regular fa-face-smile-beam" style="color: rgb(160, 187, 7);" data-role="dayStatus" data-id="2" title="Gut"></i>
+    <i class="section__icon fa-regular fa-face-laugh-beam" style="color:rgb(10, 192, 10);" data-role="dayStatus" data-id="1" title="Sehr gut"></i>
   </div>
 </div>
 <div class="section">
   <h2 class="section__heading">Wie oft hast du dein Zeitmanagement-Tool benutzt?</h2>
-  <input class="section__input" type="range" min="0" max="5">
+  <input class="section__input" type="range" min="0" max="5" data-role="timeManagementUsage" title="Gar nicht | Selten | Manchmal | Oft | Sehr oft">
 </div>
 <div class="section">
   <h2 class="section__heading">Hast du ausreichend Wasser getrunken?</h2>
-  <input class="section__input" type="range" min="0" max="5">
+  <input class="section__input" type="range" min="0" max="5" data-role="waterIntake" title="Sehr wenig | Wenig | Durchschnittlich | Viel | Sehr viel">
 </div>
 <div class="section">
   <h2 class="section__heading">Wie erholsam hast du deine Pausen verbracht?</h2>
-  <input class="section__input" type="range" min="0" max="5">
+  <input class="section__input" type="range" min="0" max="5" data-role="healthyBreak" title="Sehr selten | Selten | Manchmal | Oft | Sehr oft">
+</div>
+<div class="control">
+  <i class="control__icon fa-solid fa-trash-can" data-role="delete"></i>
+  <i class="control__icon fa-regular fa-floppy-disk" data-role="save"></i>
 </div>

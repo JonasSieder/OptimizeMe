@@ -6,29 +6,43 @@
 
   &__heading {
     color: gray;
-    font-family: Comic Sans MS;
-  }
-
-  &__button {
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
+    font-family: Helvetica;
   }
 
   &__icon {
     font-size: 2rem;
     margin: 0px 4px;
+    cursor: pointer;
 
     &:hover {
+      text-shadow: 0.5px 0.5px 0.5px rgb(100, 98, 98);
+    }
+
+    &:active {
       text-shadow: 1px 1px 1px rgb(100, 98, 98);
+    }
+
+    &--active {
+      text-shadow: 0.5px 0.5px 0.5px rgb(100, 98, 98);
     }
   }
 
   &__input {
     width: 200px;
+  }
+}
+
+.control {
+  float: right;
+
+  &__icon {
+    font-size: 2rem;
+    margin: 10px 10px;
+    cursor: pointer;
+    color: #4c4a4a;
+
+    &:active {
+      color: $activeIcon;
+    }
   }
 }
