@@ -47,7 +47,6 @@ const init = async () => {
     progressbarElement = getProgressbarElement(progressbarOrder, nextInterval)
     progressbarElementId = progressbarElement.getAttribute('data-id')
     maxMinutes = getMaxMinutes(progressbarElement, intervalTimes)
-    console.log(progressbarElement)
     chrome.storage.local.set({'progressbarElementId': progressbarElementId, 'maxMinutes': maxMinutes})
 
     chrome.runtime.sendMessage({action: 'nextInterval', maxMinutes})
@@ -57,14 +56,17 @@ const init = async () => {
   btnReset.addEventListener('click', async () => {
     chrome.runtime.sendMessage({action: 'resetIntervalNumber'})
     clearInterval(countdownInterval.value)
-    chrome.storage.local.clear(() => {})
+
+    chrome.storage.local.remove(['interval', 'maxMinutes', 'progressbarElementId', 'progressbarWidths'], () => {
+      console.log('Daten erfolgreich gelöscht')
+    })
 
     progressbarOrder.forEach((element) => {
       element.style.width = 0
     })
-    console.log(interval)
     progressbarElement = getProgressbarElement(progressbarOrder, interval)
     progressbarElementId = progressbarElement.getAttribute('data-id')
+
     maxMinutes = getMaxMinutes(progressbarElement, intervalTimes)
     displayProgress(maxMinutes, countdownDisplay, countdownInterval, btnPlay, btnStop, progressbarOrder)
   })

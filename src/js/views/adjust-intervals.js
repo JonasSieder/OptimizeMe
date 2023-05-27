@@ -20,9 +20,11 @@ const init = () => {
     chrome.storage.local.set({'interval': 0})
     chrome.storage.local.clear(() => {})
   })
+
   btnResetIntervalTimes.addEventListener('click', () => {
     resetInputIntervalTimes(inputsAdjustIntervalTimes)
   })
+
   inputsAdjustIntervalTimes.forEach((input) => {
     input.addEventListener('change', () => {
       pomodoroProgressbar.renderProgressbar(parseInt(inputsAdjustIntervalTimes[0].value), parseInt(inputsAdjustIntervalTimes[1].value), parseInt(inputsAdjustIntervalTimes[2].value), parseInt(inputsAdjustIntervalTimes[3].value))

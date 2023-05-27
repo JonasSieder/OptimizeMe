@@ -1,4 +1,4 @@
-.control-elements {
+.element-control {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -25,7 +25,7 @@
   }
 }
 
-.storage {
+.storage-control {
   display: flex;
 
   i {
@@ -34,7 +34,7 @@
     }
 
     &:active {
-      color: rgb(51, 84, 95);
+      color: $activeIcon;
     }
 
     &:first-child {
