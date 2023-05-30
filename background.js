@@ -42,9 +42,6 @@ const createNotification = () => {
 const startInterval = (maxMinutes) => {
   intervalStatus = true
   countdown = setInterval(() => {
-    console.log('---------------------')
-    console.log(`maxMinutes: ${maxMinutes}`)
-    console.log(`seconds: ${seconds}`)
 
     seconds++
     if (seconds === (maxMinutes * 60)) {
