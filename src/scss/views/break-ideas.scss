@@ -1,0 +1,75 @@
+.ideas {
+  border: 1px solid;
+  border-radius: $breakIdeasBorderRadius;
+  margin-bottom: 20px;
+  box-shadow: 0.5px 4px 4px rgb(51, 51, 51);
+}
+
+.ideas-navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f7f6f6;
+  border-top-right-radius: $breakIdeasBorderRadius;
+  border-top-left-radius: $breakIdeasBorderRadius;
+
+  > :first-child {
+    border-top-left-radius: $breakIdeasBorderRadius;
+  }
+
+  > :last-child {
+    border-top-right-radius: $breakIdeasBorderRadius;
+  }
+}
+
+.ideas-navbar-tab {
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    flex-grow: 1;
+    justify-content: center;
+    cursor: pointer;
+
+    &__icon {
+      margin-right: 5px;
+    }
+
+    &__text {
+      user-select: none;
+    }
+
+    &--active {
+      background-color: white;
+      border: none;
+    }
+}
+
+.ideas-main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 275px;
+}
+
+.task {
+  text-align: center;
+
+  &__icon {
+    font-size: 1.9rem;
+  }
+}
+
+.playlist {
+  border-radius: 10px;
+}
+
+.powernapping {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__icon {
+    margin-bottom: 40px;
+    font-size: 3rem;
+  }
+}

@@ -1,0 +1,44 @@
+.element-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $margin-under-progressbar;
+  margin-bottom: 13px;
+}
+
+.adjustments {
+  display: flex;
+}
+
+.adjustment-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+
+  &__description {
+    margin: 0px 0px 8px 0px;
+  }
+
+  &__input::-webkit-inner-spin-button {
+    opacity: 1
+  }
+}
+
+.storage-control {
+  display: flex;
+
+  i {
+    &:hover {
+      text-shadow: 1px 1px 2px rgb(100, 98, 98);
+    }
+
+    &:active {
+      color: $activeIcon;
+    }
+
+    &:first-child {
+      margin-right: 15px;
+    }
+  }
+}

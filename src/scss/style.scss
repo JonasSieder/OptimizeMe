@@ -1,0 +1,64 @@
+// Imports \\_______________________________________
+@import '_variables.scss';
+@import 'components/pomodoro-progressbar.scss';
+@import 'views/pomodoro.scss';
+@import 'views/adjust-intervals.scss';
+@import 'views/break-ideas.scss';
+@import 'views/self-reflection.scss';
+@import 'views/statistic.scss';
+
+// Styles \\_______________________________________
+body {
+  margin: 0;
+  width: 550px;
+}
+
+.top {
+  background-color: $background-color-secondary;
+  margin-bottom: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  margin: 0px $margin-outside;
+
+  &__heading {
+    color: white;
+  }
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 2rem;
+  margin: 0px $margin-outside;
+
+  &__button {
+    background: none;
+    color: white;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  &__underline {
+    position: absolute;
+    bottom: 4px;
+    margin: 0;
+    height: 2px;
+    border-width: 0;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+}
+
+.main {
+  margin: 0px $margin-outside;
+}
+
+.none {
+  display: none;
+}

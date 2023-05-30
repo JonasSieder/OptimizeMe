@@ -1,0 +1,53 @@
+.pomodoro {
+  display: flex;
+  align-items: center;
+  margin-bottom: $margin-under-progressbar;
+
+  &__controls {
+    display: flex;
+    flex-wrap: nowrap;
+
+    i {
+      margin: 0px 4px;
+
+      &:hover {
+        text-shadow: 1px 1px 2px rgb(100, 98, 98);
+      }
+    }
+  }
+
+  &__icons:active {
+    color: $activeIcon;
+  }
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 13px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    margin-right: 5px;
+  }
+
+  &__time {
+    margin: 0;
+    font-size: 0.8rem;
+  }
+}
+
+.stay-hydrated {
+  display: flex;
+  align-items: center;
+
+  &__message {
+    margin: 5px;
+    font-size: 0.9rem;
+  }
+}
