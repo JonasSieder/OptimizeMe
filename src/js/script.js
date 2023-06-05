@@ -23,18 +23,22 @@ const renderContent = (fileName) => {
   return fetch(`/src/views/${fileName}.html`)
     .then(response => response.text())
     .then(data => {
-      containerContent.innerHTML = ''
-      addContent(fileName, data)
+      addContent(data)
+      runViewLogic(fileName)
     })
     .catch(error => console.log(error))
 }
 
-const addContent = (fileName, data) => {
+const addContent = (data) => {
+  containerContent.innerHTML = ''
+
   const content = document.createElement('div')
   content.innerHTML = data
 
   containerContent.appendChild(content)
+}
 
+const runViewLogic = (fileName) => {
   switch (fileName) {
     case 'pomodoro':
       pomodoro.init()
